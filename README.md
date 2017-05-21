@@ -1,5 +1,5 @@
 # text
-A text processing library for JSON, XML, RSS.
+This is a text processing library for JSON, XML, RSS.
 
 For more on reading those formats:
 <ul>
