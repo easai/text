@@ -18,11 +18,15 @@ public class XML {
 	 * @param key the key
 	 * @return the top Node
 	 */
-	public static Node getFirstNode(String urlStr, String key){
-		NodeList list=getNodeList(urlStr, key);
+	public static Node getFirstNode(String urlStr, String key)throws Exception{
 		Node node=null;
-		if(0<list.getLength()){
-			node=list.item(0);
+		try {
+			NodeList list=getNodeList(urlStr, key);		
+			if(0<list.getLength()){
+				node=list.item(0);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 		return node;
 	}
@@ -34,7 +38,7 @@ public class XML {
 	 * @param key the key
 	 * @return the NodeList
 	 */
-	public static NodeList getNodeList(String urlStr, String key){
+	public static NodeList getNodeList(String urlStr, String key)throws Exception{
 		NodeList list=null;
 	     try {
 	            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -44,7 +48,7 @@ public class XML {
 	            doc.getDocumentElement().normalize();
 	            list=doc.getElementsByTagName(key);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	        	throw e;
 	        }
 	     return list;
 	}

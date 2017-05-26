@@ -10,28 +10,40 @@ public class RSS {
 	/**
 	 * Reads RSS and returns the first node whose tag name is "channel". 
 	 * 
-	 * @param rss
-	 * @return
+	 * @param rss the RSS adderss 
+	 * @return the top Node
 	 */
-	public static Node readRSS(String rss) {
-		return XML.getFirstNode(rss, "channel");
+	public static Node readRSS(String rss) throws Exception{
+		Node node=null;
+		try {
+			node=XML.getFirstNode(rss, "channel");
+		} catch (Exception e) {
+			throw e;
+		}
+		return node;
 	}
 
 	/**
 	 * Gets the list of list of Node's.
 	 * 
 	 * @param rss the URL of the RSS
-	 * @return ArrayList of ArrayList<Node>
+	 * @return ArrayList of ArrayList of Node
 	 */
-	public static ArrayList<ArrayList<Node>> getList(String rss) {
-		Node top = readRSS(rss);
+	public static ArrayList<ArrayList<Node>> getList(String rss) throws Exception{
 		ArrayList<ArrayList<Node>> list = new ArrayList<>();
-		NodeList nodeList = top.getChildNodes();
-		for (int index = 0; index < nodeList.getLength(); index++) {
-			Node item = nodeList.item(index);
-			if (item.getNodeName().equals("item")) {
-				list.add(getItemList(item));
+		try {
+			Node top = readRSS(rss);
+			if(top!=null){
+				NodeList nodeList = top.getChildNodes();
+				for (int index = 0; index < nodeList.getLength(); index++) {
+					Node item = nodeList.item(index);
+					if (item.getNodeName().equals("item")) {
+						list.add(getItemList(item));
+					}
+				}
 			}
+		} catch (Exception e) {
+			throw e;
 		}
 		return list;
 	}
