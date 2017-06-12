@@ -1,13 +1,17 @@
 package com.github.easai.text;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
@@ -54,8 +58,9 @@ public class JSON {
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setSSLSocketFactory(ctx.getSocketFactory());
-			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			JSONObject obj = (JSONObject) parser.parse(reader);
+			InputStream inputStream=conn.getInputStream();
+            Reader reader = new InputStreamReader(inputStream,"UTF-8");
+            JSONObject obj = (JSONObject) parser.parse(new BufferedReader(reader));
 			JSONArray article = (JSONArray) obj.get(key);
 			for (int i = 0; i < article.size(); i++) {
 				JSONObject item = (JSONObject) article.get(i);

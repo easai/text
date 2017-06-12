@@ -1,5 +1,8 @@
 package com.github.easai.text;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -8,6 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class XML {
 
@@ -44,9 +48,16 @@ public class XML {
 	            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	            URL url=new URL(urlStr);
-	            Document doc = dBuilder.parse(url.openStream());
+	            InputStream inputStream=url.openStream();
+	            Reader reader = new InputStreamReader(inputStream,"UTF-8");
+	            InputSource is = new InputSource(reader);
+	            is.setEncoding("UTF-8");
+	            Document doc = dBuilder.parse(is);
 	            doc.getDocumentElement().normalize();
 	            list=doc.getElementsByTagName(key);
+	            if(is!=null){
+	            	reader.close();
+	            }
 	        } catch (Exception e) {
 	        	throw e;
 	        }

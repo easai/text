@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.easai</groupId>
 	<artifactId>text</artifactId>
-	<version>0.1.5</version>
+	<version>0.1.6</version>
 	<name>${product.artifactId}</name>
 	<url>https://github.com/easai/${product.artifactId}</url>
 	<description>A text processing library for JSON, XML, RSS.</description>
